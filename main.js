@@ -12,6 +12,7 @@ let onlineStatusWindow, mainWindow;
  */
 
 function createWindow () {
+
     // Cree la fenetre du navigateur.
 
     // Electron Screen calculator
@@ -65,5 +66,3 @@ app.on('activate', () => {
         createWindow()
     }
 })
-
-// Dans ce fichier, vous pouvez inclure le reste de votre code spécifique au processus principal. Vous pouvez également le mettre dans des fichiers séparés et les inclure ici.
