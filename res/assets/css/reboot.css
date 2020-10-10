@@ -3,3 +3,58 @@
 * ===================== Reboot Stylesheet ====================
 * ============================================================
 */
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'bangersregular', sans-serif;
+}
+
+p, a, li, select, input, button, textarea, span, b, i, u, strong, em {
+    font-family: 'barlow_condensedlight', sans-serif;
+    font-size: 18px;
+    resize: none;
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #F1F1F1;
+    transition: color linear 0.15s;
+}
+
+a:hover {
+    color: darkgoldenrod;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1C3859;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #F1F1F1;
+}
+
+::selection {
+    background-color: darkgoldenrod;
+    color: #F1F1F1;
+}
