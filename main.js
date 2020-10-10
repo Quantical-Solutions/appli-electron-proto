@@ -13,11 +13,7 @@ let onlineStatusWindow, mainWindow;
 
 function createWindow () {
 
-    // Cree la fenetre du navigateur.
-
-    // Electron Screen calculator
     const screenElectron = require('electron').screen;
-
     let mainScreen = screenElectron.getPrimaryDisplay();
     let dimensions = mainScreen.size;
 
@@ -28,31 +24,22 @@ function createWindow () {
         backgroundColor:"inherit",
         show: true,
         frame: true,
+        icon: __dirname + '/res/assets/media/img/logo.png',
         fullscreenable:true,
         webPreferences: {
-            // 2. Enable Node.js integration
             devTools: true,
             nodeIntegration: true
         }
     })
 
-    // et charger le fichier index.html de l'application.
     win.loadURL(`file://${__dirname}/index.html`);
-
-    // Ouvre les DevTools.
     //win.webContents.openDevTools()
 }
 
-// Cette méthode sera appelée quant Electron aura fini
-// de s'initialiser et prêt à créer des fenêtres de navigation.
-// Certaines APIs peuvent être utilisées uniquement quant cet événement est émit.
 app.on('ready', () => {
     createWindow();
 });
 
-// Quitter lorsque toutes les fenêtres sont fermées, sauf sur macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
@@ -60,8 +47,6 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
     if (win === null) {
         createWindow()
     }
