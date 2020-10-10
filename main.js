@@ -13,10 +13,22 @@ let onlineStatusWindow, mainWindow;
 
 function createWindow () {
     // Cree la fenetre du navigateur.
+
+    // Electron Screen calculator
+    const screenElectron = require('electron').screen;
+
+    let mainScreen = screenElectron.getPrimaryDisplay();
+    let dimensions = mainScreen.size;
+
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: dimensions.width,
+        height: dimensions.height,
+        show: true,
+        frame: true,
+        fullscreenable:true,
         webPreferences: {
+            // 2. Enable Node.js integration
+            devTools: true,
             nodeIntegration: true
         }
     })
