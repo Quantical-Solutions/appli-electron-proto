@@ -1,67 +1,118 @@
-const { app, shell, BrowserWindow, globalShortcut } = require('electron');
-const Nav = require('electron').Menu;
-const path = require('path');
-const fs = require('fs'); // Files explorer module
-const ipc = require('electron').ipcMain;
-let onlineStatusWindow, mainWindow;
+//handle setupevents as quickly as possible
+const setupEvents = require('./installers/setupEvents')
+if (setupEvents.handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  return;
+}
 
-/*
-=========================================================================
-=========================== Starting Window =============================
-=========================================================================
- */
+const electron = require('electron')
+// Module to control application life.
+const app = electron.app
+const { shell, globalShortcut } = require('electron');
+const fs = require('fs') // Files explorer module
+const {ipcMain} = require('electron')
+var path = require('path')
+require('./dialog/dialog')
+
+// Module to create native browser window.
+const BrowserWindow = electron.BrowserWindow
+//Adds the main Menu to our app
+
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+let mainWindow
+let secondWindow
 
 function createWindow () {
-    // Cree la fenetre du navigateur.
 
-    // Electron Screen calculator
+// Electron Screen calculator
     const screenElectron = require('electron').screen;
 
     let mainScreen = screenElectron.getPrimaryDisplay();
     let dimensions = mainScreen.size;
 
-    const win = new BrowserWindow({
-        width: dimensions.width,
-        height: dimensions.height,
-        show: true,
-        frame: true,
-        fullscreenable:true,
-        webPreferences: {
-            // 2. Enable Node.js integration
-            devTools: true,
-            nodeIntegration: true
-        }
-    })
+  // Create the browser window.
+  mainWindow = new BrowserWindow({titleBarStyle: 'hidden',
+    width: dimensions.width,
+    height: dimensions.height,
+    minWidth: dimensions.width,
+    minHeight: dimensions.height,
+    backgroundColor: '#312450',
+    show: false,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
 
-    // et charger le fichier index.html de l'application.
-    win.loadURL(`file://${__dirname}/index.html`);
+  // and load the index.html of the app.
+  mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-    // Ouvre les DevTools.
-    //win.webContents.openDevTools()
+  // Open the DevTools.
+  //mainWindow.webContents.openDevTools()
+
+
+  // Show the mainwindow when it is loaded and ready to show
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null
+  })
+
+  secondWindow = new BrowserWindow({frame: false,
+    width: 800,
+    height: 600,
+    minWidth: 800,
+    minHeight: 600,
+    backgroundColor: '#312450',
+    show: false,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
+    parent: mainWindow,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  secondWindow.loadURL(`file://${__dirname}/windows/ipcwindow.html`)
+
+  require('./menu/mainmenu')
 }
 
-// Cette méthode sera appelée quant Electron aura fini
-// de s'initialiser et prêt à créer des fenêtres de navigation.
-// Certaines APIs peuvent être utilisées uniquement quant cet événement est émit.
-app.on('ready', () => {
-    createWindow();
-});
-
-// Quitter lorsque toutes les fenêtres sont fermées, sauf sur macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit()
-    }
+ipcMain.on('open-second-window', (event, arg)=> {
+    secondWindow.show()
 })
 
-app.on('activate', () => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (win === null) {
-        createWindow()
-    }
+ipcMain.on('close-second-window', (event, arg)=> {
+    secondWindow.hide()
 })
 
-// Dans ce fichier, vous pouvez inclure le reste de votre code spécifique au processus principal. Vous pouvez également le mettre dans des fichiers séparés et les inclure ici.
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', createWindow)
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function () {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', function () {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
