@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr_FR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
@@ -9,6 +9,7 @@
     <meta name="referrer" content="origin">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Octeus Nomad Card</title>
+    <!-- Icon -->
     <link rel="icon" type="image/png" href="res/assets/media/img/favicon.png">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="res/assets/css/style.css">
@@ -18,35 +19,40 @@
     <link rel="import" href="res/pages/dialog.html">
     <link rel="import" href="res/pages/ipcremote.html">
 </head>
-<body id="body">
+<body id="matrix-body">
 
-<!-- SideBar -->
-<nav>
-    <div id="nav-background-img-container"></div>
-    <div id="nav-container">
-        <ul>
-            <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
-            <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
-            <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
-            <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
-        </ul>
-    </div>
-</nav>
+    <!-- Header tag -->
+    <header id="matrix-header"></header>
 
-<!-- Content -->
-<header id="header"></header>
-<main id="main"></main>
-<footer id="footer"></footer>
+    <!-- SideBar -->
+    <nav>
+        <div id="nav-background-img-container"></div>
+        <div id="nav-container">
+            <ul>
+                <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
+                <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
+                <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
+                <li onclick="getPage(this, 'carnet')">Carnet de santé</li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- Scripts -->
-<script type="text/javascript" src="res/assets/js/jquery.js"></script>
-<script>window.$ = window.jQuery = require('./res/assets/js/jquery.js');</script>
-<script type="text/javascript" src="main.js"></script>
-<script>
-    //require('./assets/js/menu');
-</script>
-<script src="res/assets/css/owlcarousel/dist/owl.carousel.min.js"></script>
-<script type="text/javascript" src="res/assets/js/xhr.js"></script>
-<script type="text/javascript" src="res/assets/js/script.js"></script>
+    <!-- Content -->
+    <main id="matrix-main"></main>
+
+    <!-- Footer tag -->
+    <footer id="matrix-footer"></footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="res/assets/js/jquery.js"></script>
+    <script>window.$ = window.jQuery = require('./res/assets/js/jquery.js');</script>
+    <script type="text/javascript" src="main.js"></script>
+    <script>
+        //require('./assets/js/menu');
+    </script>
+    <script src="res/assets/css/owlcarousel/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="res/assets/js/xhr.js"></script>
+    <script type="text/javascript" src="res/assets/js/utils.js"></script>
+    <script type="text/javascript" src="res/assets/js/script.js"></script>
 </body>
 </html>
