@@ -8,7 +8,7 @@
       }
     ],
     "appId": "com.octeus.nomad-card",
-    "productName": "OCTEUS Nomad Solutions 32",
+    "productName": "OCTEUS Nomad Solutions",
     "mac": {
       "category": "public.app-category.developper-tools",
       "icon": "res/assets/media/img/logo.png"

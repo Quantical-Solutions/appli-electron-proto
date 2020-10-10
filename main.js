@@ -19,8 +19,7 @@ let onlineStatusWindow, win;
 
 function createWindow () {
 
-    const screenElectron = require('electron').screen;
-    let mainScreen = screenElectron.getPrimaryDisplay();
+    let mainScreen = require('electron').screen.getPrimaryDisplay();
     let dimensions = mainScreen.size;
 
     win = new BrowserWindow({
@@ -30,7 +29,6 @@ function createWindow () {
         backgroundColor:"inherit",
         show: true,
         frame: true,
-        icon: __dirname + '/res/assets/media/img/logo.png',
         fullscreenable:true,
         webPreferences: {
             devTools: true,
@@ -38,8 +36,8 @@ function createWindow () {
         }
     })
 
-    win.loadURL(`file://${__dirname}/index.html`);
     //win.webContents.openDevTools()
+    win.loadURL(`file://${__dirname}/index.html`);
 }
 
 /*
@@ -48,18 +46,21 @@ function createWindow () {
 =========================================================================
  */
 
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit()
-    }
-})
+if (app) {
 
-app.on('activate', () => {
-    if (win === null) {
-        createWindow()
-    }
-})
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit()
+        }
+    })
 
-app.on('ready', () => {
-    createWindow();
-});
+    app.on('activate', () => {
+        if (win === null) {
+            createWindow()
+        }
+    })
+
+    app.on('ready', () => {
+        createWindow();
+    });
+}
