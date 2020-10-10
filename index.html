@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr_FR">
+<head>
+    <meta charset="UTF-8">
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="referrer" content="origin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Hello World!</title>
+    <link rel="icon" type="image/png" href="res/assets/media/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/reboot.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/owlcarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="res/assets/css/owlcarousel/dist/assets/owl.theme.default.min.css">
+</head>
+<body>
+
+<h1>Hello World!</h1>
+We are using node <script>document.write(process.versions.node)</script>,
+Chrome <script>document.write(process.versions.chrome)</script>,
+and Electron <script>document.write(process.versions.electron)</script>.
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="res/assets/js/jquery.js"></script>
+    <script>window.$ = window.jQuery = require('./res/assets/js/jquery.js');</script>
+    <script src="res/assets/owlcarousel/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="res/assets/js/xhr.js"></script>
+    <script type="text/javascript" src="res/assets/js/script.js"></script>
+</body>
+</html>

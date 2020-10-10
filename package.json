@@ -1,0 +1,50 @@
+{
+  "name": "octeus-electron",
+  "version": "1.0.0",
+  "description": "Application Octeus",
+  "main": "main.js",
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions",
+    "test": "npm start",
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "dist:mac": "electron-builder --mac",
+    "pack": "electron-builder --dir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quantical-Solutions/appli-electron-proto.git"
+  },
+  "keywords": [
+    "Octeus",
+    "Application"
+  ],
+  "author": "Octeus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Quantical-Solutions/appli-electron-proto/issues"
+  },
+  "homepage": "https://github.com/Quantical-Solutions/appli-electron-proto#readme",
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "*",
+    "electron-installer-windows": "*",
+    "electron-packager": "*",
+    "electron-prebuilt": "*",
+    "electron-winstaller": "^4.0.0",
+    "gulp": "^4.0.2"
+  },
+  "resolutions": {
+    "minimist": "^1.2.5"
+  },
+  "dependencies": {
+    "electron-fetch": "^1.4.0",
+    "electron-reload": "^1.5.0",
+    "jquery": "^3.4.1",
+    "scandir": "^0.1.2",
+    "shell": "^0.5.0",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
