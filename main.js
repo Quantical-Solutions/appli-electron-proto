@@ -1,13 +1,19 @@
+/*
+=========================================================================
+============================ Params setters =============================
+=========================================================================
+ */
+
 const { app, shell, BrowserWindow, globalShortcut } = require('electron');
 const Nav = require('electron').Menu;
 const path = require('path');
 const fs = require('fs'); // Files explorer module
 const ipc = require('electron').ipcMain;
-let onlineStatusWindow, mainWindow;
+let onlineStatusWindow, win;
 
 /*
 =========================================================================
-=========================== Starting Window =============================
+============================ Create Windows =============================
 =========================================================================
  */
 
@@ -17,7 +23,7 @@ function createWindow () {
     let mainScreen = screenElectron.getPrimaryDisplay();
     let dimensions = mainScreen.size;
 
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         titleBarStyle: 'hidden',
         width: dimensions.width,
         height: dimensions.height,
@@ -36,9 +42,11 @@ function createWindow () {
     //win.webContents.openDevTools()
 }
 
-app.on('ready', () => {
-    createWindow();
-});
+/*
+=========================================================================
+============================ App Statements =============================
+=========================================================================
+ */
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -51,3 +59,7 @@ app.on('activate', () => {
         createWindow()
     }
 })
+
+app.on('ready', () => {
+    createWindow();
+});
