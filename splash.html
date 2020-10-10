@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="referrer" content="origin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Octeus Nomad Card</title>
+    <!-- Icon -->
+    <link rel="icon" type="image/png" href="res/assets/media/img/favicon.png">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="res/assets/css/style.css">
+    <!-- Pages -->
+    <link rel="import" href="res/splash/welcome.html">
+    <link rel="import" href="res/splash/conditions.html">
+    <link rel="import" href="res/splash/login.html">
+    <link rel="import" href="res/splash/register.html">
+</head>
+<body id="splash-body">
+
+<!-- SideBar -->
+<nav>
+    <div id="nav-background-img-container"></div>
+    <div id="nav-container">
+        <ul>
+            <li id="welcome-menu" data-section="welcome">Welcome</li>
+            <li id="conditions-menu" data-section="conditions">CGU</li>
+            <li id="login-menu" data-section="login">Connexion</li>
+            <li id="register-menu" data-section="register">Initialisation</li>
+            <li id="launch-app">Go</li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Content -->
+<main id="splash-main"></main>
+
+<!-- Scripts -->
+<script type="text/javascript" src="res/assets/js/jquery.js"></script>
+<script>window.$ = window.jQuery = require('./res/assets/js/jquery.js');</script>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="res/assets/js/xhr.js"></script>
+<script type="text/javascript" src="res/assets/js/utils.js"></script>
+<script type="text/javascript" src="res/assets/js/script.js"></script>
+</body>
+</html>

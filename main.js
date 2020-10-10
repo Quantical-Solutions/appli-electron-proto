@@ -27,7 +27,7 @@ function createWindow () {
         width: dimensions.width,
         height: dimensions.height,
         backgroundColor:"inherit",
-        show: true,
+        show: false,
         frame: true,
         fullscreenable:true,
         webPreferences: {
@@ -37,7 +37,48 @@ function createWindow () {
     })
 
     //win.webContents.openDevTools()
-    win.loadURL(`file://${__dirname}/index.html`);
+    //win.loadURL(`file://${__dirname}/index.html`);
+
+    /*-----SplashScreen-----*/
+    let splash = new BrowserWindow({
+        titleBarStyle: 'hidden',
+        width: dimensions.width,
+        height: dimensions.height,
+        show:true,
+        frame:true,
+        fullscreenable:true,
+        webPreferences: {
+            devTools: true,
+            nodeIntegration: true
+        }
+    });
+
+    //splash.webContents.openDevTools()
+    splash.loadURL(`file://${__dirname}/splash.html`);
+
+    var mess = '';
+    ipc.on('invokeAction', function(event, message){
+        if (message === 'toApp') {
+
+            win.loadURL(`file://${__dirname}/index.html`);
+            win.once('ready-to-show', () => {
+                splash.close();
+                app.dock.show();
+                win.show();
+            });
+
+        } else if (message === 'toSplash') {
+
+            win.loadURL(`file://${__dirname}/splash.html`);
+            win.once('ready-to-show', () => {
+                win.close();
+                app.dock.show();
+                splash.show();
+            });
+        }
+
+        event.sender.send('actionReply', mess);
+    });
 }
 
 /*
@@ -50,6 +91,7 @@ if (app) {
 
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') {
+            app.dock.hide();
             app.quit()
         }
     })
@@ -57,10 +99,12 @@ if (app) {
     app.on('activate', () => {
         if (win === null) {
             createWindow()
+            app.dock.hide();
         }
     })
 
     app.on('ready', () => {
-        createWindow();
+        createWindow()
+        app.dock.hide();
     });
 }

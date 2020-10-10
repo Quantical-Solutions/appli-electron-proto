@@ -4,13 +4,23 @@
 ========================================================
  */
 
+let ipcSplash = require('electron').ipcRenderer;
+
+let splash = document.querySelector('#splash-body'),
+    main = document.querySelector('#matrix-body'),
+    setContentContainer = (main) ? '#matrix-main' : '#splash-main',
+    setStartSectionMenuItem = (main) ? '#carnet-menu' : '#welcome-menu',
+    setStartSection = (main) ? '#carnet' : '#welcome';
+
+
+
 window.navigation = window.navigation || {}, function(n) {
     navigation.menu = {
         constants: {
             sectionTemplate: '.section-template',
-            contentContainer: '#matrix-main',
-            startSectionMenuItem: '#carnet-menu',
-            startSection: '#carnet'
+            contentContainer: setContentContainer,
+            startSectionMenuItem: setStartSectionMenuItem,
+            startSection: setStartSection
         },
 
         importSectionsToDOM: function() {
@@ -59,3 +69,16 @@ window.navigation = window.navigation || {}, function(n) {
     })
 
 }(jQuery);
+
+let goToApp = document.querySelector('#launch-app')
+let goToSplash = document.querySelector('#launch-splash')
+if (goToApp) {
+    goToApp.onclick = function(ev) {
+        ipcSplash.send('invokeAction', 'toApp');
+    }
+}
+if (goToSplash) {
+    goToSplash.onclick = function(ev) {
+        ipcSplash.send('invokeAction', 'toSplash');
+    }
+}
