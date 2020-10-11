@@ -234,7 +234,7 @@ function modal(type, width, height) {
         frame:true,
         draggable: true,
         webPreferences: {
-            //enableRemoteModule: true,
+            enableRemoteModule: true,
             nodeIntegration: true,
             devTools: true
         }

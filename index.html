@@ -13,11 +13,6 @@
     <link rel="icon" type="image/png" href="res/assets/media/img/favicon.png">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="res/assets/css/style.css">
-    <!-- Pages -->
-    <link rel="import" href="res/pages/carnet.html">
-    <link rel="import" href="res/pages/voyages.html">
-    <link rel="import" href="res/pages/traitements.html">
-    <link rel="import" href="res/pages/outils.html">
 </head>
 <body id="matrix-body">
 
@@ -41,7 +36,20 @@
     <button type="button" class="show-modals" data-fn="test">Show Modal</button>
 
     <!-- Content -->
-    <main id="matrix-main"></main>
+    <main id="matrix-main">
+        <section id="carnet">
+            Carnet
+        </section>
+        <section id="traitements" style="display: none;">
+            Traitements
+        </section>
+        <section id="voyages" style="display: none;">
+            Voyages
+        </section>
+        <section id="outils" style="display: none;">
+            Outils
+        </section>
+    </main>
 
     <!-- Footer tag -->
     <footer id="matrix-footer"></footer>

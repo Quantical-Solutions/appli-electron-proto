@@ -4,10 +4,11 @@
 ========================================================
  */
 
-const { remote } = require('electron');
 let ipcModal = require('electron').ipcRenderer;
 let ipcLogin = require('electron').ipcRenderer;
 let db;
+const rooter = require('path');
+const finder = require('fs');
 
 let login = document.querySelector('#login-body'),
     main = document.querySelector('#matrix-body'),
@@ -22,15 +23,6 @@ window.navigation = window.navigation || {}, function(n) {
             contentContainer: setContentContainer,
             startSectionMenuItem: setStartSectionMenuItem,
             startSection: setStartSection
-        },
-
-        importSectionsToDOM: function() {
-            const links = document.querySelectorAll('link[rel="import"]')
-            Array.prototype.forEach.call(links, function (link) {
-                let template = link.import.querySelector(navigation.menu.constants.sectionTemplate)
-                let clone = document.importNode(template.content, true)
-                document.querySelector(navigation.menu.constants.contentContainer).appendChild(clone)
-            })
         },
 
         setMenuOnClickEvent: function () {
@@ -59,7 +51,6 @@ window.navigation = window.navigation || {}, function(n) {
         },
 
         init: function() {
-            this.importSectionsToDOM()
             this.setMenuOnClickEvent()
             this.showStartSection()
         }
@@ -113,9 +104,7 @@ function generateData(obj) {
  */
 
 let showModals = document.querySelectorAll('.show-modals')
-let closeModals = document.querySelectorAll('.close-modals')
 let exitApp = document.querySelector('#exit')
-let popin = remote.getCurrentWindow()
 
 for (let i = 0; i < showModals.length; i++) {
     showModals[i].addEventListener('click', function(ev){
@@ -124,12 +113,6 @@ for (let i = 0; i < showModals.length; i++) {
         ipcModal.send('invokeActionModal', data);
     });
 
-}
-
-for (let i = 0; i < closeModals.length; i++) {
-    closeModals[i].addEventListener('click', function(ev){
-        popin.close();
-    });
 }
 
 function openModal() {
