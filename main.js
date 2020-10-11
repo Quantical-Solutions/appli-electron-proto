@@ -76,6 +76,7 @@ function createWindow () {
 
     var mess = '';
     ipc.on('invokeAction', function(event, message){
+
         if (message === 'toApp') {
 
             win = new BrowserWindow({
@@ -94,9 +95,12 @@ function createWindow () {
 
             win.loadURL(`file://${__dirname}/index.html`);
             win.once('ready-to-show', () => {
+
                 if (!login.isDestroyed()) {
+
                     login.close();
                 }
+
                 app.dock.show();
                 win.show();
             });
@@ -116,15 +120,18 @@ function createWindow () {
                 }
             });
 
-            //login.webContents.openDevTools()
-
             login.loadURL(`file://${__dirname}/login.html`);
             login.once('ready-to-show', () => {
+
                 if (!splash.isDestroyed()) {
+
                     splash.close();
+
                 } else if (!win.isDestroyed()) {
+
                     win.close();
                 }
+
                 app.dock.show();
                 login.show();
             });
