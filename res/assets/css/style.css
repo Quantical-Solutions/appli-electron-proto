@@ -4,9 +4,17 @@
 * ============================================================
 */
 
-@import "animate.css";
+@import "owlcarousel/docs_src/assets/css/animate.css";
 @import "fonts.css";
 @import "reboot.css";
 @import "responsive.css";
 @import "owlcarousel/dist/assets/owl.carousel.min.css";
 @import "owlcarousel/dist/assets/owl.theme.default.min.css";
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #191919;
+    color: #F7F7F7;
+}

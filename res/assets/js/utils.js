@@ -4,13 +4,13 @@
 ========================================================
  */
 
-let ipcSplash = require('electron').ipcRenderer;
+let ipcLogin = require('electron').ipcRenderer;
 
-let splash = document.querySelector('#splash-body'),
+let login = document.querySelector('#login-body'),
     main = document.querySelector('#matrix-body'),
-    setContentContainer = (main) ? '#matrix-main' : '#splash-main',
-    setStartSectionMenuItem = (main) ? '#carnet-menu' : '#welcome-menu',
-    setStartSection = (main) ? '#carnet' : '#welcome';
+    setContentContainer = (main) ? '#matrix-main' : '#login-main',
+    setStartSectionMenuItem = (main) ? '#carnet-menu' : '#login-menu',
+    setStartSection = (main) ? '#carnet' : '#login';
 
 
 
@@ -71,14 +71,14 @@ window.navigation = window.navigation || {}, function(n) {
 }(jQuery);
 
 let goToApp = document.querySelector('#launch-app')
-let goToSplash = document.querySelector('#launch-splash')
+let goToLogin = document.querySelector('#launch-login')
 if (goToApp) {
     goToApp.onclick = function(ev) {
-        ipcSplash.send('invokeAction', 'toApp');
+        ipcLogin.send('invokeAction', 'toApp');
     }
 }
-if (goToSplash) {
-    goToSplash.onclick = function(ev) {
-        ipcSplash.send('invokeAction', 'toSplash');
+if (goToLogin) {
+    goToLogin.onclick = function(ev) {
+        ipcLogin.send('invokeAction', 'toLogin');
     }
 }

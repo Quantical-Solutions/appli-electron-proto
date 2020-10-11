@@ -39,12 +39,28 @@ function createWindow () {
     //win.webContents.openDevTools()
     //win.loadURL(`file://${__dirname}/index.html`);
 
-    /*-----SplashScreen-----*/
+    /*-----Splash Screen-----*/
     let splash = new BrowserWindow({
+        titleBarStyle: 'hidden',
+        width: dimensions.width*2/3,
+        height: dimensions.height*2/3,
+        backgroundColor:"inherit",
+        show:true,
+        frame:true,
+        fullscreenable:false,
+        webPreferences: {
+            devTools: true,
+            nodeIntegration: true
+        }
+    });
+
+    /*-----Login Screen-----*/
+    let login = new BrowserWindow({
         titleBarStyle: 'hidden',
         width: dimensions.width,
         height: dimensions.height,
-        show:true,
+        backgroundColor:"inherit",
+        show:false,
         frame:true,
         fullscreenable:true,
         webPreferences: {
@@ -53,27 +69,64 @@ function createWindow () {
         }
     });
 
-    //splash.webContents.openDevTools()
+    //login.webContents.openDevTools()
+
+    //login.webContents.openDevTools()
     splash.loadURL(`file://${__dirname}/splash.html`);
 
     var mess = '';
     ipc.on('invokeAction', function(event, message){
         if (message === 'toApp') {
 
+            win = new BrowserWindow({
+                titleBarStyle: 'hidden',
+                width: dimensions.width,
+                height: dimensions.height,
+                backgroundColor:"inherit",
+                show: false,
+                frame: true,
+                fullscreenable:true,
+                webPreferences: {
+                    devTools: true,
+                    nodeIntegration: true
+                }
+            })
+
             win.loadURL(`file://${__dirname}/index.html`);
             win.once('ready-to-show', () => {
-                splash.close();
+                if (!login.isDestroyed()) {
+                    login.close();
+                }
                 app.dock.show();
                 win.show();
             });
 
-        } else if (message === 'toSplash') {
+        } else if (message === 'toLogin') {
 
-            win.loadURL(`file://${__dirname}/splash.html`);
-            win.once('ready-to-show', () => {
-                win.close();
+            login = new BrowserWindow({
+                titleBarStyle: 'hidden',
+                width: dimensions.width,
+                height: dimensions.height,
+                show:false,
+                frame:true,
+                fullscreenable:true,
+                webPreferences: {
+                    devTools: true,
+                    nodeIntegration: true
+                }
+            });
+
+            //login.webContents.openDevTools()
+
+            login.loadURL(`file://${__dirname}/login.html`);
+            login.once('ready-to-show', () => {
+                if (!splash.isDestroyed()) {
+                    splash.close();
+                } else if (!win.isDestroyed()) {
+                    win.close();
+                }
                 app.dock.show();
-                splash.show();
+                login.show();
             });
         }
 

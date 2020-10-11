@@ -13,16 +13,23 @@
     <link rel="icon" type="image/png" href="res/assets/media/img/favicon.png">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="res/assets/css/style.css">
+    <!-- Pages -->
+    <link rel="import" href="res/login/login.html">
+    <link rel="import" href="res/login/register.html">
+    <link rel="import" href="res/login/conditions.html">
 </head>
-<body id="splash-body">
+<body id="login-body">
 
 <!-- SideBar -->
 <ul>
-    <li id="launch-login">Connexion</li>
+    <li id="login-menu" data-section="login">Connexion</li>
+    <li id="register-menu" data-section="register">Initialisation</li>
+    <li id="conditions-menu" data-section="conditions">CGU</li>
+    <li id="launch-app">Go</li>
 </ul>
 
 <!-- Content -->
-<main id="splash-main"></main>
+<main id="login-main"></main>
 
 <!-- Scripts -->
 <script type="text/javascript" src="res/assets/js/jquery.js"></script>
