@@ -4,15 +4,15 @@
 =========================================================================
  */
 
-const { app, BrowserWindow } = require('electron');
-const Nav = require('electron').Menu;
-const ipc = require('electron').ipcMain;
-const path = require('path');
+const { app, BrowserWindow } = require('electron')
+const Nav = require('electron').Menu
+const ipc = require('electron').ipcMain
+const path = require('path')
 const dblocation = path.join(__dirname, 'db')
-const explorer = require('fs');
-let win;
+const explorer = require('fs')
+let win
 
-app.commandLine.appendSwitch('--ignore-gpu-blacklist');
+app.commandLine.appendSwitch('--ignore-gpu-blacklist')
 
 /*
 =========================================================================
