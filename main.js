@@ -77,7 +77,7 @@ function createWindow () {
     //login.webContents.openDevTools()
 
     //login.webContents.openDevTools()
-    splash.loadURL(`file://${__dirname}/splash.html`);
+    splash.loadURL(`file://${__dirname}/splash.html`)
 
     var mess = '';
     ipc.on('invokeAction', function(event, message){
@@ -99,16 +99,16 @@ function createWindow () {
                 }
             })
 
-            win.loadURL(`file://${__dirname}/index.html`);
+            win.loadURL(`file://${__dirname}/index.html`)
             win.once('ready-to-show', () => {
 
                 if (!login.isDestroyed()) {
 
-                    login.close();
+                    login.close()
                 }
 
-                app.dock.show();
-                win.show();
+                app.dock.show()
+                win.show()
                 //modal('test', 480, 336);
             });
 
@@ -129,24 +129,24 @@ function createWindow () {
                 }
             });
 
-            login.loadURL(`file://${__dirname}/login.html`);
+            login.loadURL(`file://${__dirname}/login.html`)
             login.once('ready-to-show', () => {
 
                 if (!splash.isDestroyed()) {
 
-                    splash.close();
+                    splash.close()
 
                 } else if (!win.isDestroyed()) {
 
-                    win.close();
+                    win.close()
                 }
 
-                app.dock.show();
-                login.show();
+                app.dock.show()
+                login.show()
             });
         }
 
-        event.sender.send('actionReply', mess);
+        event.sender.send('actionReply', mess)
     });
 
     ipc.on('invokeActionModal', function(event, type){
@@ -156,7 +156,7 @@ function createWindow () {
             dimensions.width*2/3,
             dimensions.height*2/3
         )
-        event.sender.send('actionReply', mess);
+        event.sender.send('actionReply', mess)
     });
 
     ipc.on('invokeActionViewer', function(event, data){
@@ -168,13 +168,13 @@ function createWindow () {
     });
 
     ipc.on('invokeActionCloseApp', function(event){
-        app.quit();
+        app.quit()
     });
 
     ipc.on('invokeActionDB', function(event, array){
 
         var type = array[0],
-            table = array[1];
+            table = array[1]
 
         if (type === 'read') {
 
@@ -209,13 +209,13 @@ if (app) {
     app.on('activate', () => {
         if (win === null) {
             createWindow()
-            app.dock.hide();
+            app.dock.hide()
         }
     })
 
     app.on('ready', () => {
         createWindow()
-        app.dock.hide();
+        app.dock.hide()
     });
 }
 
@@ -225,12 +225,12 @@ if (app) {
 =========================================================================
 */
 
-let newWindow = null;
+let newWindow = null
 
 function modal(type, width, height) {
 
     if (newWindow) {
-        newWindow.focus();
+        newWindow.focus()
         return
     }
 
@@ -252,8 +252,8 @@ function modal(type, width, height) {
         }
     });
 
-    //newWindow.webContents.openDevTools();
-    newWindow.loadURL(`file://${__dirname}/res/modals/` + type.toLowerCase() + `.html`);
+    //newWindow.webContents.openDevTools()
+    newWindow.loadURL(`file://${__dirname}/res/modals/` + type.toLowerCase() + `.html`)
 
     newWindow.on('closed', () => {
         newWindow = null;
@@ -270,12 +270,12 @@ function modal(type, width, height) {
 =========================================================================
 */
 
-let viewer = null;
+let viewer = null
 
 function dicomViewer(width, height) {
 
     if (viewer) {
-        viewer.focus();
+        viewer.focus()
         return
     }
 
@@ -297,11 +297,11 @@ function dicomViewer(width, height) {
         }
     });
 
-    //viewer.webContents.openDevTools();
-    viewer.loadURL(`file://${__dirname}/data/dav/viewers/mobile/index.html`);
+    //viewer.webContents.openDevTools()
+    viewer.loadURL(`file://${__dirname}/data/dav/viewers/mobile/index.html`)
 
     viewer.on('closed', () => {
-        viewer = null;
+        viewer = null
     });
 
     viewer.on('ready', () => {
@@ -323,7 +323,7 @@ function getDB(table) {
             let obj = JSON.parse(file)
             return obj
         } catch (e) {
-            console.log("Parsing error:", e);
+            console.log("Parsing error:", e)
         }
     }
 }
@@ -337,10 +337,10 @@ function updateDB(table, obj) {
             if (err) {
                 console.log("An error occurred creating the file " + err.message)
             }
-            console.log("The file has been successfully saved");
+            console.log("The file has been successfully saved")
             return obj
         });
     } catch (e) {
-        console.log("Parsing error:", e);
+        console.log("Parsing error:", e)
     }
 }
