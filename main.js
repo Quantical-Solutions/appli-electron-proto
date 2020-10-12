@@ -27,7 +27,7 @@ function createWindow () {
         titleBarStyle: 'hidden',
         width: dimensions.width,
         height: dimensions.height,
-        backgroundColor:"inherit",
+        backgroundColor: '#191919',
         show: false,
         frame: true,
         fullscreenable:true,
@@ -45,7 +45,7 @@ function createWindow () {
         titleBarStyle: 'hidden',
         width: dimensions.width*2/3,
         height: dimensions.height*2/3,
-        backgroundColor:"inherit",
+        backgroundColor: '#191919',
         show:true,
         frame:true,
         fullscreenable:false,
@@ -61,7 +61,7 @@ function createWindow () {
         titleBarStyle: 'hidden',
         width: dimensions.width,
         height: dimensions.height,
-        backgroundColor:"inherit",
+        backgroundColor: '#191919',
         show:false,
         frame:true,
         fullscreenable:true,
@@ -86,7 +86,7 @@ function createWindow () {
                 titleBarStyle: 'hidden',
                 width: dimensions.width,
                 height: dimensions.height,
-                backgroundColor:"inherit",
+                backgroundColor: '#191919',
                 show: false,
                 frame: true,
                 fullscreenable:true,
@@ -118,6 +118,7 @@ function createWindow () {
                 height: dimensions.height,
                 show:false,
                 frame:true,
+                backgroundColor: '#191919',
                 fullscreenable:true,
                 webPreferences: {
                     devTools: true,
@@ -154,6 +155,14 @@ function createWindow () {
             dimensions.height*2/3
         )
         event.sender.send('actionReply', mess);
+    });
+
+    ipc.on('invokeActionViewer', function(event, data){
+
+        dicomViewer(
+            dimensions.width,
+            dimensions.height
+        )
     });
 
     ipc.on('invokeActionCloseApp', function(event){
@@ -229,6 +238,7 @@ function modal(type, width, height) {
         resizable: false,
         width: width,
         titleBarStyle: 'hidden',
+        backgroundColor: '#191919',
         minimizable: false,
         fullscreenable: false,
         frame:true,
@@ -240,7 +250,7 @@ function modal(type, width, height) {
         }
     });
 
-    newWindow.webContents.openDevTools();
+    //newWindow.webContents.openDevTools();
     newWindow.loadURL(`file://${__dirname}/res/modals/` + type.toLowerCase() + `.html`);
 
     newWindow.on('closed', () => {
@@ -248,6 +258,51 @@ function modal(type, width, height) {
     });
 
     newWindow.on('ready', () => {
+        //
+    });
+}
+
+/*
+=========================================================================
+============================= Dicom Viewer ==============================
+=========================================================================
+*/
+
+let viewer = null;
+
+function dicomViewer(width, height) {
+
+    if (viewer) {
+        viewer.focus();
+        return
+    }
+
+    viewer = new BrowserWindow({
+        modal:false,
+        height: height,
+        resizable: true,
+        width: width,
+        backgroundColor: '#191919',
+        titleBarStyle: 'hidden',
+        minimizable: false,
+        fullscreenable: true,
+        frame:true,
+        draggable: false,
+        webPreferences: {
+            enableRemoteModule: true,
+            nodeIntegration: true,
+            devTools: true
+        }
+    });
+
+    //viewer.webContents.openDevTools();
+    viewer.loadURL(`file://${__dirname}/data/dav/viewers/mobile/index.html`);
+
+    viewer.on('closed', () => {
+        viewer = null;
+    });
+
+    viewer.on('ready', () => {
         //
     });
 }

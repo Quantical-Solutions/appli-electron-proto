@@ -115,11 +115,6 @@ for (let i = 0; i < showModals.length; i++) {
 
 }
 
-function openModal() {
-    var data = showModals[i].dataset.fn
-    ipcModal.send('invokeActionModal', data);
-}
-
 if (exitApp) {
     exitApp.addEventListener('click', function(ev){
         ipcModal.send('invokeActionCloseApp', 'close');
@@ -131,4 +126,12 @@ if (document.querySelector('#splash-body')) {
     remoteGetDB('traveler')
     var json = {"text": "un petit sexe"}
     remoteUpdateDB('traveler', json)
+}
+
+let showViewer = document.querySelector('#show-dicom-viewer')
+if (showViewer) {
+    showViewer.addEventListener('click', function (ev) {
+        var viewer = ev.currentTarget
+        ipcModal.send('invokeActionViewer', 'open');
+    })
 }
